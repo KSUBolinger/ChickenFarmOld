@@ -62,16 +62,16 @@ namespace GameProject0
         public void Draw(GameTime gametime, SpriteBatch spriteBatch)
         {
             animationTimer += gametime.ElapsedGameTime.TotalSeconds;
-            if(animationTimer > 0.3)
+            if(animationTimer > 0.5)
             {
                 animationFrame++;
-                if(animationFrame > 3)
+                if(animationFrame > 1)
                 {
-                    animationFrame = 1;
+                    animationFrame = 0;
                 }
-                animationTimer -= 0.3;
+                animationTimer -= 0.5;
             }
-            var source = new Rectangle(animationFrame * 32, (int)Direction * 32, 32, 32);
+            var source = new Rectangle(animationFrame * 40, (int)Direction * 29, 40, 29);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(texture, Position, source, Color.White);
         }
