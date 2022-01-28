@@ -15,6 +15,8 @@ namespace GameProject0
         private EggSprite[] eggs;
         private InputManager inputManager;
 
+        private Texture2D backgroundTexture;
+
         public Game0()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -49,10 +51,11 @@ namespace GameProject0
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           
+
             // TODO: use this.Content to load your game content here
-            
+
             //snake.LoadContent(Content);
+            backgroundTexture = Content.Load<Texture2D>("Plains");
             chicken.LoadContent(Content);
             foreach (var snake in snakes)
             {
@@ -95,9 +98,12 @@ namespace GameProject0
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
+            spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
 
             chicken.Draw(gameTime, spriteBatch);
             //snake.Draw(gameTime, spriteBatch);
