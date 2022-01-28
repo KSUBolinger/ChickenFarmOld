@@ -28,7 +28,7 @@ namespace GameProject0
 
         private ChickenDirection chickenDirection;
 
-        private InputManager inputManager;
+        private InputManager inputManager = new InputManager();
 
         private double directionTimer;
         private double animationTimer;
@@ -77,6 +77,7 @@ namespace GameProject0
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            var source = new Rectangle(0, 0, 32, 32);
             //check to see if the chicken is in motion
             inMotion = inputManager.MotionCheck();
             if (inMotion)
@@ -87,13 +88,19 @@ namespace GameProject0
                     animationFrame += 2;
                     if(animationFrame > 2)
                     {
-
+                        animationFrame = 0;
                     }
+                    animationTimer -= 0.3;
                 }
+                source = new Rectangle(animationFrame * 32, (int)chickenDirection * 32, 32, 32);
+            }
+            else
+            {
+                source = new Rectangle(32, (int)chickenDirection * 32, 32, 32);
             }
             
 
-            var source = new Rectangle(32, 64, 32, 32);
+            
             //spriteBatch.Draw(texture, position, source, Color.White);
             spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
         }

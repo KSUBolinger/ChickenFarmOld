@@ -29,7 +29,7 @@ namespace GameProject0
         /// <returns></returns>
         public bool MotionCheck()
         {
-            if (currentKeyboard.IsKeyDown(Keys.W) && priorKeyboard.IsKeyUp(Keys.W))
+            if (currentKeyboard.IsKeyDown(Keys.W) && (priorKeyboard.IsKeyUp(Keys.W) || currentKeyboard.IsKeyDown(Keys.W)))
             {
                 return true;
             }
