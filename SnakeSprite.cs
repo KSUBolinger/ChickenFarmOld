@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameProject0
 {
-    public enum Direction
+    public enum SnakeDirection
     {
         Right = 0,
         Left = 1,
     }
-    
+
     public class SnakeSprite
     {
         private Texture2D texture;
@@ -22,7 +22,7 @@ namespace GameProject0
         private short animationFrame;
         private bool flipped;
 
-        public Direction Direction;
+        public SnakeDirection snakeDirection;
         public Vector2 Position;
 
         public void LoadContent(ContentManager content)
@@ -37,19 +37,19 @@ namespace GameProject0
             //switch the direction every two seconds
             if(directionTimer > 2.0)
             {
-                if(Direction == Direction.Left)
+                if(snakeDirection == SnakeDirection.Left)
                 {
-                    Direction = Direction.Right;
-                    Position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    snakeDirection = SnakeDirection.Right;
+                    //Position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 else
                 {
-                    Direction = Direction.Left;
+                    snakeDirection = SnakeDirection.Left;
                 }
                 directionTimer -= 2.0;
             }
 
-            if (Direction == Direction.Left)
+            if (snakeDirection == SnakeDirection.Left)
             {
                 Position += new Vector2(-1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
@@ -71,7 +71,7 @@ namespace GameProject0
                 }
                 animationTimer -= 0.5;
             }
-            var source = new Rectangle(animationFrame * 40, (int)Direction * 29, 40, 29);
+            var source = new Rectangle(animationFrame * 40, (int)snakeDirection * 29, 40, 29);
             //SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(texture, Position, source, Color.White);
         }

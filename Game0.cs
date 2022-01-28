@@ -22,7 +22,7 @@ namespace GameProject0
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            snake = new SnakeSprite() { Position = new Vector2(200, 200), Direction = Direction.Left };
+            snake = new SnakeSprite() { Position = new Vector2(200, 200), snakeDirection = SnakeDirection.Left };
             inputManager = new InputManager();
 
             base.Initialize();
