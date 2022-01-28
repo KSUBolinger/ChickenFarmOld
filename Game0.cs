@@ -8,7 +8,7 @@ namespace GameProject0
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Snake snake;
+        private SnakeSprite snake;
         private InputManager inputManager;
 
         public Game0()
@@ -21,7 +21,7 @@ namespace GameProject0
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            snake = new Snake(this, Color.White) { Position = new Vector2(250, 200) };
+            snake = new SnakeSprite(this, Color.White) { Position = new Vector2(250, 200) };
             inputManager = new InputManager();
 
             base.Initialize();
