@@ -8,17 +8,21 @@ namespace GameProject0
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Snake snake;
+        private InputManager inputManager;
 
         public Game0()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            snake = new Snake(this, Color.White) { Position = new Vector2(250, 200) };
+            inputManager = new InputManager();
 
             base.Initialize();
         }
@@ -27,6 +31,7 @@ namespace GameProject0
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            snake.LoadContent();
             // TODO: use this.Content to load your game content here
         }
 

@@ -16,10 +16,10 @@ namespace GameProject0
 
         public Vector2 Position { get; set; }
 
-        public Snake(Game game)
+        public Snake(Game game, Color color)
         {
             this.game = game;
-
+            this.color = color;
         }
 
         public void LoadContent()
