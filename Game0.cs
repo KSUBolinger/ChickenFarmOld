@@ -14,6 +14,8 @@ namespace GameProject0
         private ChickenSprite chicken;
         private EggSprite[] eggs;
         private InputManager inputManager;
+        private SpriteFont bangers;
+        private int eggsLeft;
 
         private Texture2D backgroundTexture;
 
@@ -41,7 +43,7 @@ namespace GameProject0
             {
                 new EggSprite(new Vector2(400, 400))
             };
-
+            eggsLeft = eggs.Length;
 
             inputManager = new InputManager();
 
@@ -65,7 +67,7 @@ namespace GameProject0
             {
                 egg.LoadContent(Content);
             }
-
+            bangers = Content.Load<SpriteFont>("bangers");
 
         }
 
@@ -88,6 +90,7 @@ namespace GameProject0
                 {
                     chicken.color = Color.Red;
                     egg.Collected = true;
+                    eggsLeft--;
                 }
             }
             
@@ -115,7 +118,8 @@ namespace GameProject0
             {
                 egg.Draw(gameTime, spriteBatch);
             }
-            
+            spriteBatch.DrawString(bangers, $"Eggs Left: {eggsLeft} ", new Vector2(20, 20), Color.Black);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
