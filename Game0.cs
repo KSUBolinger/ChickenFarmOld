@@ -33,15 +33,18 @@ namespace GameProject0
             //snake = new SnakeSprite() { Position = new Vector2(400, 400), snakeDirection = SnakeDirection.Left };
             snakes = new SnakeSprite[]
             {
-                new SnakeSprite(){ Position = new Vector2(400, 350), snakeDirection = SnakeDirection.Right },
-                new SnakeSprite(){ Position = new Vector2(300, 100), snakeDirection = SnakeDirection.Right },
-                new SnakeSprite(){ Position = new Vector2(200, 250), snakeDirection = SnakeDirection.Left },
-                new SnakeSprite(){ Position = new Vector2(350, 225), snakeDirection = SnakeDirection.Left }
+                new SnakeSprite(){ Position = new Vector2(400, 375), snakeDirection = SnakeDirection.Right },
+                new SnakeSprite(){ Position = new Vector2(325, 100), snakeDirection = SnakeDirection.Right },
+                new SnakeSprite(){ Position = new Vector2(200, 300), snakeDirection = SnakeDirection.Left },
+                new SnakeSprite(){ Position = new Vector2(350, 200), snakeDirection = SnakeDirection.Left }
             };
 
             eggs = new EggSprite[]
             {
-                new EggSprite(new Vector2(400, 400))
+                new EggSprite(new Vector2(625, 250)),
+                new EggSprite(new Vector2(100, 400)),
+                new EggSprite(new Vector2(570, 50)),
+                new EggSprite(new Vector2(350, 325))
             };
             eggsLeft = eggs.Length;
 
