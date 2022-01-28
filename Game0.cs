@@ -10,7 +10,9 @@ namespace GameProject0
         private SpriteBatch spriteBatch;
         
         private SnakeSprite snake;
+        private SnakeSprite[] snakes;
         private ChickenSprite chicken;
+        private EggSprite[] eggs;
         private InputManager inputManager;
 
         public Game0()
@@ -24,7 +26,21 @@ namespace GameProject0
         {
             // TODO: Add your initialization logic here
             chicken = new ChickenSprite();
-            snake = new SnakeSprite() { Position = new Vector2(200, 200), snakeDirection = SnakeDirection.Left };
+            //snake = new SnakeSprite() { Position = new Vector2(400, 400), snakeDirection = SnakeDirection.Left };
+            snakes = new SnakeSprite[]
+            {
+                new SnakeSprite(){ Position = new Vector2(400, 350), snakeDirection = SnakeDirection.Right },
+                new SnakeSprite(){ Position = new Vector2(300, 100), snakeDirection = SnakeDirection.Right },
+                new SnakeSprite(){ Position = new Vector2(200, 250), snakeDirection = SnakeDirection.Left },
+                new SnakeSprite(){ Position = new Vector2(350, 225), snakeDirection = SnakeDirection.Left }
+            };
+
+            eggs = new EggSprite[]
+            {
+                new EggSprite(new Vector2(400, 400))
+            };
+
+
             inputManager = new InputManager();
 
             base.Initialize();
@@ -36,8 +52,17 @@ namespace GameProject0
            
             // TODO: use this.Content to load your game content here
             
-            snake.LoadContent(Content);
+            //snake.LoadContent(Content);
             chicken.LoadContent(Content);
+            foreach (var snake in snakes)
+            {
+                snake.LoadContent(Content);
+            }
+            foreach(var egg in eggs)
+            {
+                egg.LoadContent(Content);
+            }
+
 
         }
 
@@ -48,7 +73,12 @@ namespace GameProject0
 
             // TODO: Add your update logic here
             chicken.Update(gameTime);
-            snake.Update(gameTime);
+            //snake.Update(gameTime);
+            foreach(var snake in snakes)
+            {
+                snake.Update(gameTime);
+            }
+            
 
             base.Update(gameTime);
         }
@@ -59,8 +89,18 @@ namespace GameProject0
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
             chicken.Draw(gameTime, spriteBatch);
-            snake.Draw(gameTime, spriteBatch);
+            //snake.Draw(gameTime, spriteBatch);
+            foreach(var snake in snakes)
+            {
+                snake.Draw(gameTime, spriteBatch);
+            }
+            foreach(var egg in eggs)
+            {
+                egg.Draw(gameTime, spriteBatch);
+            }
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

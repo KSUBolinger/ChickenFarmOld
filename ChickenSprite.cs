@@ -24,7 +24,7 @@ namespace GameProject0
 
         private bool inMotion;
 
-        private Vector2 position = new Vector2(200, 200);
+        private Vector2 position = new Vector2(100, 100);
 
         private ChickenDirection chickenDirection;
 

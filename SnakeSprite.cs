@@ -75,8 +75,8 @@ namespace GameProject0
             }
             var source = new Rectangle(animationFrame * 40, (int)snakeDirection * 29, 40, 29);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spriteBatch.Draw(texture, Position, source, Color.White);
-            //spriteBatch.Draw
+            //spriteBatch.Draw(texture, Position, source, Color.White);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(0, 0), 1.25f, spriteEffects, 0);
         }
     }
 }
