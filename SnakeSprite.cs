@@ -72,7 +72,7 @@ namespace GameProject0
                 animationTimer -= 0.5;
             }
             var source = new Rectangle(animationFrame * 40, (int)Direction * 29, 40, 29);
-            SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            //SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(texture, Position, source, Color.White);
         }
     }
