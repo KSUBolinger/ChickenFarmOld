@@ -8,6 +8,7 @@ namespace GameProject0
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        
         private SnakeSprite snake;
         private InputManager inputManager;
 
@@ -21,7 +22,7 @@ namespace GameProject0
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            snake = new SnakeSprite(this, Color.White) { Position = new Vector2(250, 200) };
+            snake = new SnakeSprite();
             inputManager = new InputManager();
 
             base.Initialize();
@@ -30,9 +31,11 @@ namespace GameProject0
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            snake.LoadContent();
+           
             // TODO: use this.Content to load your game content here
+            
+            snake.LoadContent(Content);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -41,6 +44,7 @@ namespace GameProject0
                 Exit();
 
             // TODO: Add your update logic here
+            snake.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -50,6 +54,9 @@ namespace GameProject0
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            snake.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

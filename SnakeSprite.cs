@@ -8,13 +8,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameProject0
 {
+    public enum Direction
+    {
+        Right = 0,
+        Left = 1,
+    }
+    
     public class SnakeSprite
     {
-        private KeyboardState keyboardState;
         private Texture2D texture;
+        private double directionTimer;
+        private double animationTimer;
+        private short animationFrame;
         private bool flipped;
 
-        private Vector2 position = new Vector2(200, 200);
+        public Direction Direction;
+        public Vector2 Position;
 
         public void LoadContent(ContentManager content)
         {
@@ -23,28 +32,48 @@ namespace GameProject0
 
         public void Update(GameTime gameTime)
         {
-            keyboardState = Keyboard.GetState();
+            directionTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            //keyboard movement
-            if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W)) position += new Vector2(0, -1);
-            if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S)) position += new Vector2(0, 1);
-            if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+            //switch the direction every two seconds
+            if(directionTimer > 2.0)
             {
-                position += new Vector2(-1, 0);
-                flipped = true;
+                if(Direction == Direction.Left)
+                {
+                    Direction = Direction.Right;
+                    Position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                else
+                {
+                    Direction = Direction.Left;
+                }
+                directionTimer -= 2.0;
             }
 
-            if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
+            if (Direction == Direction.Left)
             {
-                position += new Vector2(1, 0);
-                flipped = false;
+                Position += new Vector2(-1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                Position += new Vector2(1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
         public void Draw(GameTime gametime, SpriteBatch spriteBatch)
         {
+            animationTimer += gametime.ElapsedGameTime.TotalSeconds;
+            if(animationTimer > 0.3)
+            {
+                animationFrame++;
+                if(animationFrame > 3)
+                {
+                    animationFrame = 1;
+                }
+                animationTimer -= 0.3;
+            }
+            var source = new Rectangle(animationFrame * 32, (int)Direction * 32, 32, 32);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(64,64), 0.5f, spriteEffects, 0);
+            spriteBatch.Draw(texture, Position, source, Color.White);
         }
     }
 }
