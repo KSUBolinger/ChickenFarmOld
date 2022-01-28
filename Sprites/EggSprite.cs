@@ -12,13 +12,16 @@ namespace GameProject0
         private Vector2 position;
 
         private Texture2D texture;
+        private BoundingCircle bounds;
 
         public bool Collected { get; set; } = false;
+
+        public BoundingCircle Bounds => bounds;
 
         public EggSprite(Vector2 position)
         {
             this.position = position;
-
+            this.bounds = new BoundingCircle(position - new Vector2(-8, -8), 8);
         }
 
         public void LoadContent(ContentManager content)
