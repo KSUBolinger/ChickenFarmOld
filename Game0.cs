@@ -78,6 +78,15 @@ namespace GameProject0
             {
                 snake.Update(gameTime);
             }
+
+            foreach(var egg in eggs)
+            {
+                if(!egg.Collected && egg.Bounds.CollidesWith(chicken.Bounds))
+                {
+                    chicken.color = Color.Red;
+                    egg.Collected = true;
+                }
+            }
             
 
             base.Update(gameTime);

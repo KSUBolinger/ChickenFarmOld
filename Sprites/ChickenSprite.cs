@@ -16,6 +16,7 @@ namespace GameProject0
         Left = 3,
         Idle = 4,
     }
+    
     public class ChickenSprite
     {
         private KeyboardState keyboardState;
@@ -29,8 +30,14 @@ namespace GameProject0
         private ChickenDirection chickenDirection;
 
         private InputManager inputManager = new InputManager();
+        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 16, 200 - 16), 32, 32);
 
-        private double directionTimer;
+        public Color color;
+
+
+        public BoundingRectangle Bounds => bounds;
+
+        //private double directionTimer;
         private double animationTimer;
         private short animationFrame;
 
@@ -72,6 +79,9 @@ namespace GameProject0
             }
 
             #endregion
+
+            bounds.X = position.X - 16;
+            bounds.Y = position.Y - 16;
         }
 
 
