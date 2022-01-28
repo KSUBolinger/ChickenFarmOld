@@ -10,9 +10,9 @@ namespace GameProject0
 {
     public enum ChickenDirection
     {
-        Down = 0,
+        Up = 0,
         Right = 1,
-        Up = 2,
+        Down = 2,
         Left = 3,
         Idle = 4,
     }
@@ -22,13 +22,16 @@ namespace GameProject0
 
         private Texture2D texture;
 
-        private bool flipped;
+        private bool inMotion;
 
         private Vector2 position = new Vector2(200, 200);
 
         private ChickenDirection chickenDirection;
 
+        private InputManager inputManager;
+
         private double directionTimer;
+        private double animationTimer;
         private short animationFrame;
 
         
@@ -42,38 +45,57 @@ namespace GameProject0
 
         public void Update(GameTime gameTime)
         {
-            keyboardState = Keyboard.GetState();
+            
 
-            //keyboard inputs 
-            if(keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
+            #region keyboard inputs
+
+            keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.W))
             {
-                position += new Vector2(0, -1);
+                position += new Vector2(0, -100 *(float)gameTime.ElapsedGameTime.TotalSeconds);
                 chickenDirection = ChickenDirection.Up;
             }
-            if(keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
+            if(keyboardState.IsKeyDown(Keys.S))
             {
-                position += new Vector2(0, 1);
+                position += new Vector2(0, 100 * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 chickenDirection = ChickenDirection.Down;
             }
-            if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(Keys.A))
             {
-                position += new Vector2(-1, 0);
+                position += new Vector2(-100 *(float)gameTime.ElapsedGameTime.TotalSeconds, 0);
                 chickenDirection = ChickenDirection.Left;
             }
-
-            if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(Keys.D))
             {
-                position += new Vector2(1, 0);
+                position += new Vector2(100 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
                 chickenDirection = ChickenDirection.Right;
             }
+
+            #endregion
         }
 
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //check to see if the chicken is in motion
+            inMotion = inputManager.MotionCheck();
+            if (inMotion)
+            {
+                animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if(animationTimer > 0.3)
+                {
+                    animationFrame += 2;
+                    if(animationFrame > 2)
+                    {
+
+                    }
+                }
+            }
+            
 
             var source = new Rectangle(32, 64, 32, 32);
-            spriteBatch.Draw(texture, position, source, Color.White);
+            //spriteBatch.Draw(texture, position, source, Color.White);
+            spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
         }
     }
 }

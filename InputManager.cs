@@ -17,7 +17,39 @@ namespace GameProject0
 
         public void Update(GameTime gameTime)
         {
+            priorKeyboard = currentKeyboard;
+            currentKeyboard = Keyboard.GetState();
 
+            
+        }
+
+        /// <summary>
+        /// checks to see if the sprite should be in motion
+        /// </summary>
+        /// <returns></returns>
+        public bool MotionCheck()
+        {
+            if (currentKeyboard.IsKeyDown(Keys.W) && priorKeyboard.IsKeyUp(Keys.W))
+            {
+                return true;
+            }
+            else if(currentKeyboard.IsKeyDown(Keys.S) && priorKeyboard.IsKeyUp(Keys.S))
+            {
+                return true;
+            }
+            else if(currentKeyboard.IsKeyDown(Keys.A) && priorKeyboard.IsKeyUp(Keys.A))
+            {
+                return true;
+            }
+            else if(currentKeyboard.IsKeyDown(Keys.D) && priorKeyboard.IsKeyUp(Keys.D))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

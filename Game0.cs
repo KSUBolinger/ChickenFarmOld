@@ -10,6 +10,7 @@ namespace GameProject0
         private SpriteBatch spriteBatch;
         
         private SnakeSprite snake;
+        private ChickenSprite chicken;
         private InputManager inputManager;
 
         public Game0()
@@ -22,6 +23,7 @@ namespace GameProject0
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            chicken = new ChickenSprite();
             snake = new SnakeSprite() { Position = new Vector2(200, 200), snakeDirection = SnakeDirection.Left };
             inputManager = new InputManager();
 
@@ -35,6 +37,7 @@ namespace GameProject0
             // TODO: use this.Content to load your game content here
             
             snake.LoadContent(Content);
+            chicken.LoadContent(Content);
 
         }
 
@@ -44,6 +47,7 @@ namespace GameProject0
                 Exit();
 
             // TODO: Add your update logic here
+            chicken.Update(gameTime);
             snake.Update(gameTime);
 
             base.Update(gameTime);
@@ -55,6 +59,7 @@ namespace GameProject0
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            chicken.Draw(gameTime, spriteBatch);
             snake.Draw(gameTime, spriteBatch);
             spriteBatch.End();
 
