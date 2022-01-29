@@ -19,41 +19,50 @@ namespace GameProject0
     
     public class ChickenSprite
     {
+        //various attributes of the chicken sprite 
         private KeyboardState keyboardState;
-
         private Texture2D texture;
-
         private bool inMotion;
-
         private Vector2 position = new Vector2(100, 100);
-
         private ChickenDirection chickenDirection;
-
         private InputManager inputManager = new InputManager();
         private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 16, 200 - 16), 32, 32);
-
         public Color color;
 
-
+        /// <summary>
+        /// public accessor for the bounds of the chicken sprite 
+        /// </summary>
         public BoundingRectangle Bounds => bounds;
 
-        //private double directionTimer;
+        //private variables used to monitor the sprites animation 
         private double animationTimer;
         private short animationFrame;
 
-        
+        /// <summary>
+        /// this class resets the chicken when it comes into contact with a snake
+        /// </summary>
+        public void Reset()
+        {
+            position = new Vector2(100, 100);
+        }
 
-
+        /// <summary>
+        /// class that loads the content needed for the chicken sprite
+        /// </summary>
+        /// <param name="content">variable representing the content manager</param>
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Chicken");
         }
 
-
+        /// <summary>
+        /// updates the chicken sprites attributes 
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
         public void Update(GameTime gameTime)
         {
             
-
+            //set of if statements that capture keyboard inputs
             #region keyboard inputs
 
             keyboardState = Keyboard.GetState();
@@ -79,12 +88,17 @@ namespace GameProject0
             }
 
             #endregion
-
+            
+            //updating of bounds based on the chicken sprites current position
             bounds.X = position.X - 16;
             bounds.Y = position.Y - 16;
         }
 
-
+        /// <summary>
+        /// draws the chicken sprite
+        /// </summary>
+        /// <param name="gameTime">the gametime </param>
+        /// <param name="spriteBatch">the spritebatch that needs to be drawn</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var source = new Rectangle(0, 0, 32, 32);
@@ -109,9 +123,6 @@ namespace GameProject0
                 source = new Rectangle(32, (int)chickenDirection * 32, 32, 32);
             }
             
-
-            
-            //spriteBatch.Draw(texture, position, source, Color.White);
             spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
         }
     }

@@ -7,15 +7,24 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameProject0
 {
+    /// <summary>
+    /// class that handles the egg sprites
+    /// </summary>
     public class EggSprite
     {
+        //attributes that contribute to the creation and updating of the sprites
         private Vector2 position;
-
         private Texture2D texture;
         private BoundingCircle bounds;
-
+        
+        /// <summary>
+        /// boolen representing if the egg has been collected 
+        /// </summary>
         public bool Collected { get; set; } = false;
 
+        /// <summary>
+        /// public accessor for the egg sprite's bounds
+        /// </summary>
         public BoundingCircle Bounds => bounds;
 
         public EggSprite(Vector2 position)
@@ -24,11 +33,20 @@ namespace GameProject0
             this.bounds = new BoundingCircle(position - new Vector2(-8, -8), 8);
         }
 
+        /// <summary>
+        /// loads the content for an egg sprite
+        /// </summary>
+        /// <param name="content">contentmanager to load with</param>
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Egg");
         }
 
+        /// <summary>
+        /// draws the egg sprite 
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
+        /// <param name="spriteBatch">the spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (Collected) return;

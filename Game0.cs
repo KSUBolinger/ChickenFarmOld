@@ -6,17 +6,14 @@ namespace GameProject0
 {
     public class Game0 : Game
     {
+        //various variables used to control aspects of the game 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        
-        private SnakeSprite snake;
         private SnakeSprite[] snakes;
         private ChickenSprite chicken;
         private EggSprite[] eggs;
-        private InputManager inputManager;
         private SpriteFont bangers;
         private int eggsLeft;
-
         private Texture2D backgroundTexture;
 
         public Game0()
@@ -25,20 +22,22 @@ namespace GameProject0
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
         }
-
+        
+        /// <summary>
+        /// initializes necessary sections of the game such as sprites
+        /// </summary>
         protected override void Initialize()
         {
+
             // TODO: Add your initialization logic here
             chicken = new ChickenSprite();
-            //snake = new SnakeSprite() { Position = new Vector2(400, 400), snakeDirection = SnakeDirection.Left };
             snakes = new SnakeSprite[]
             {
-                new SnakeSprite(){ Position = new Vector2(400, 375), snakeDirection = SnakeDirection.Right },
-                new SnakeSprite(){ Position = new Vector2(325, 100), snakeDirection = SnakeDirection.Right },
-                new SnakeSprite(){ Position = new Vector2(200, 300), snakeDirection = SnakeDirection.Left },
-                new SnakeSprite(){ Position = new Vector2(350, 200), snakeDirection = SnakeDirection.Left }
+                new SnakeSprite((new Vector2(400, 375)), SnakeDirection.Right),
+                new SnakeSprite((new Vector2(325, 100)), SnakeDirection.Right),
+                new SnakeSprite((new Vector2(200, 300)), SnakeDirection.Left),
+                new SnakeSprite((new Vector2(350, 200)), SnakeDirection.Left)
             };
-
             eggs = new EggSprite[]
             {
                 new EggSprite(new Vector2(625, 250)),
@@ -48,18 +47,18 @@ namespace GameProject0
             };
             eggsLeft = eggs.Length;
 
-            inputManager = new InputManager();
-
             base.Initialize();
         }
 
+        /// <summary>
+        /// loads the content needed for the game
+        /// </summary>
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
 
-            //snake.LoadContent(Content);
             backgroundTexture = Content.Load<Texture2D>("Plains");
             chicken.LoadContent(Content);
             foreach (var snake in snakes)
@@ -74,6 +73,10 @@ namespace GameProject0
 
         }
 
+        /// <summary>
+        /// updates the game as it's played
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -81,38 +84,47 @@ namespace GameProject0
 
             // TODO: Add your update logic here
             chicken.Update(gameTime);
-            //snake.Update(gameTime);
             foreach(var snake in snakes)
             {
                 snake.Update(gameTime);
+                if (chicken.Bounds.CollidesWith(snake.Bounds))
+                {
+                    chicken.Reset();
+                    foreach(var egg in eggs)
+                    {
+                        if (egg.Collected)
+                        {
+                            egg.Collected = false;
+                            eggsLeft++;
+                        }     
+                    }
+                }
             }
-
             foreach(var egg in eggs)
             {
                 if(!egg.Collected && egg.Bounds.CollidesWith(chicken.Bounds))
                 {
-                    chicken.color = Color.Red;
                     egg.Collected = true;
                     eggsLeft--;
                 }
             }
-            
 
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// draws the sprites, backgrounds, and text needed for the game 
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
-
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
-
             chicken.Draw(gameTime, spriteBatch);
-            //snake.Draw(gameTime, spriteBatch);
             foreach(var snake in snakes)
             {
                 snake.Draw(gameTime, spriteBatch);

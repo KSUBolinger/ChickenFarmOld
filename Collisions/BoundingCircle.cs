@@ -5,12 +5,19 @@ using Microsoft.Xna.Framework;
 
 namespace GameProject0
 {
+    /// <summary>
+    /// class that handles the creation of the bounding circle used in collision detection
+    /// </summary>
     public class BoundingCircle
     {
-
+        /// <summary>
+        /// Vector2 representing the center of the circle
+        /// </summary>
         public Vector2 Center;
 
-
+        /// <summary>
+        /// float representing the radius of the circle
+        /// </summary>
         public float Radius;
 
         public BoundingCircle(Vector2 center, float radius)

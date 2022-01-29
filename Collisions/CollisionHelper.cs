@@ -5,9 +5,17 @@ using Microsoft.Xna.Framework;
 
 namespace GameProject0
 {
+    /// <summary>
+    /// class that computes if a collision has occured
+    /// </summary>
     public class CollisionHelper
     {
-
+        /// <summary>
+        /// computes if a collision happened between two circles 
+        /// </summary>
+        /// <param name="a">first curcle</param>
+        /// <param name="b">second circle</param>
+        /// <returns></returns>
         public static bool Collides(BoundingCircle a, BoundingCircle b)
         {
             return Math.Pow(a.Radius + b.Radius, 2) >=

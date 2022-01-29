@@ -16,20 +16,41 @@ namespace GameProject0
 
     public class SnakeSprite
     {
+        //various attributes that make up the snake sprites
         private Texture2D texture;
         private double directionTimer;
         private double animationTimer;
         private short animationFrame;
         private bool flipped;
+        private BoundingRectangle bounds;
+        private Vector2 position;
+        private SnakeDirection snakeDirection;
 
-        public SnakeDirection snakeDirection;
-        public Vector2 Position;
+        /// <summary>
+        /// public accesor for the bounds of a snake sprite
+        /// </summary>
+        public BoundingRectangle Bounds => bounds;
+        
+        public SnakeSprite(Vector2 position, SnakeDirection direction)
+        {
+            this.snakeDirection = direction;
+            this.position = position;
+            this.bounds = new BoundingRectangle(position, 20, 29);
+        }
 
+        /// <summary>
+        /// loads the content for the snake sprite
+        /// </summary>
+        /// <param name="content">the contentmanager to load with</param>
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Snake");
         }
 
+        /// <summary>
+        /// updates the snake sprites animation
+        /// </summary>
+        /// <param name="gameTime">the game time</param>
         public void Update(GameTime gameTime)
         {
             directionTimer += gameTime.ElapsedGameTime.TotalSeconds;
@@ -40,7 +61,6 @@ namespace GameProject0
                 if(snakeDirection == SnakeDirection.Left)
                 {
                     snakeDirection = SnakeDirection.Right;
-                    //Position += new Vector2(0, 1) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     flipped = false;
                 }
                 else
@@ -53,14 +73,19 @@ namespace GameProject0
 
             if (snakeDirection == SnakeDirection.Left)
             {
-                Position += new Vector2(-1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(-1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else
             {
-                Position += new Vector2(1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                position += new Vector2(1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
+        /// <summary>
+        /// draws the animated snake sprite 
+        /// </summary>
+        /// <param name="gametime">the game time</param>
+        /// <param name="spriteBatch">the spritebatch to render with</param>
         public void Draw(GameTime gametime, SpriteBatch spriteBatch)
         {
             animationTimer += gametime.ElapsedGameTime.TotalSeconds;
@@ -75,8 +100,7 @@ namespace GameProject0
             }
             var source = new Rectangle(animationFrame * 40, (int)snakeDirection * 29, 40, 29);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            //spriteBatch.Draw(texture, Position, source, Color.White);
-            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(0, 0), 1.25f, spriteEffects, 0);
+            spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.25f, spriteEffects, 0);
         }
     }
 }
