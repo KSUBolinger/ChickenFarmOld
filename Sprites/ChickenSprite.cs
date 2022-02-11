@@ -54,6 +54,7 @@ namespace GameProject0
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Chicken");
+            chickenDirection = ChickenDirection.Down;
         }
 
         /// <summary>

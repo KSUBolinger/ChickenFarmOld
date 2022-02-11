@@ -108,6 +108,16 @@ namespace GameProject0
                     eggsLeft--;
                 }
             }
+            
+            if(eggsLeft == 0)
+            {
+                chicken.Reset();
+                foreach(var egg in eggs)
+                {
+                    egg.Collected = false;
+                    eggsLeft++;
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -133,7 +143,8 @@ namespace GameProject0
             {
                 egg.Draw(gameTime, spriteBatch);
             }
-            spriteBatch.DrawString(bangers, $"Eggs Left: {eggsLeft} ", new Vector2(20, 20), Color.Black);
+            spriteBatch.DrawString(bangers, $"Eggs Left: {eggsLeft} ", new Vector2(15, 35), Color.Black);
+            spriteBatch.DrawString(bangers, $"Use 'ESC' to exit game", new Vector2(15, 5), Color.Black);
 
             spriteBatch.End();
 
