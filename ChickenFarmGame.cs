@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameProject0
 {
-    public class Game0 : Game
+    public class ChickenFarmGame : Game
     {
         //various variables used to control aspects of the game 
         private GraphicsDeviceManager graphics;
@@ -16,7 +16,7 @@ namespace GameProject0
         private int eggsLeft;
         private Texture2D backgroundTexture;
 
-        public Game0()
+        public ChickenFarmGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

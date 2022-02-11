@@ -7,7 +7,7 @@ namespace GameProject0
         [STAThread]
         static void Main()
         {
-            using (var game = new Game0())
+            using (var game = new ChickenFarmGame())
                 game.Run();
         }
     }
