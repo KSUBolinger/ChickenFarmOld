@@ -29,6 +29,8 @@ namespace GameProject0
         private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 16, 200 - 16), 32, 32);
         public Color color;
 
+        private Texture2D tempTexture;
+
         /// <summary>
         /// public accessor for the bounds of the chicken sprite 
         /// </summary>
@@ -53,6 +55,7 @@ namespace GameProject0
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Chicken");
+            tempTexture = content.Load<Texture2D>("ball");
         }
 
         /// <summary>
@@ -66,22 +69,22 @@ namespace GameProject0
             #region keyboard inputs
 
             keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.W))
+            if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
             {
                 position += new Vector2(0, -100 *(float)gameTime.ElapsedGameTime.TotalSeconds);
                 chickenDirection = ChickenDirection.Up;
             }
-            if(keyboardState.IsKeyDown(Keys.S))
+            if(keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
             {
                 position += new Vector2(0, 100 * (float)gameTime.ElapsedGameTime.TotalSeconds);
                 chickenDirection = ChickenDirection.Down;
             }
-            if (keyboardState.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
             {
                 position += new Vector2(-100 *(float)gameTime.ElapsedGameTime.TotalSeconds, 0);
                 chickenDirection = ChickenDirection.Left;
             }
-            if (keyboardState.IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
             {
                 position += new Vector2(100 * (float)gameTime.ElapsedGameTime.TotalSeconds, 0);
                 chickenDirection = ChickenDirection.Right;
@@ -124,6 +127,8 @@ namespace GameProject0
             }
             
             spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
+
+            spriteBatch.Draw(tempTexture, new Vector2(bounds.X, bounds.Y), source, Color.White, 0, new Vector2(0,0), 0.5f, SpriteEffects.None,0);
         }
     }
 }

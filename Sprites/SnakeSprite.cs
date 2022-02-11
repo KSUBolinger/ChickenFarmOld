@@ -26,6 +26,8 @@ namespace GameProject0
         private Vector2 position;
         private SnakeDirection snakeDirection;
 
+        private Texture2D tempTexture;
+
         /// <summary>
         /// public accesor for the bounds of a snake sprite
         /// </summary>
@@ -45,6 +47,7 @@ namespace GameProject0
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Snake");
+            tempTexture = content.Load<Texture2D>("ball");
         }
 
         /// <summary>
@@ -79,6 +82,10 @@ namespace GameProject0
             {
                 position += new Vector2(1, 0) * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+
+
+            bounds.X = position.X;
+            bounds.Y = position.Y;
         }
 
         /// <summary>
@@ -101,6 +108,8 @@ namespace GameProject0
             var source = new Rectangle(animationFrame * 40, (int)snakeDirection * 29, 40, 29);
             SpriteEffects spriteEffects = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.25f, spriteEffects, 0);
+
+            spriteBatch.Draw(tempTexture, new Vector2(bounds.X, bounds.Y), source, Color.White, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
         }
     }
 }
