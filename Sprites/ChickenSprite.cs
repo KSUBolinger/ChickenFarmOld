@@ -29,7 +29,6 @@ namespace GameProject0
         private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 16, 200 - 16), 32, 32);
         public Color color;
 
-        private Texture2D tempTexture;
 
         /// <summary>
         /// public accessor for the bounds of the chicken sprite 
@@ -55,7 +54,6 @@ namespace GameProject0
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Chicken");
-            tempTexture = content.Load<Texture2D>("ball");
         }
 
         /// <summary>
@@ -128,7 +126,6 @@ namespace GameProject0
             
             spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
 
-            spriteBatch.Draw(tempTexture, new Vector2(bounds.X, bounds.Y), source, Color.White, 0, new Vector2(0,0), 0.5f, SpriteEffects.None,0);
         }
     }
 }
