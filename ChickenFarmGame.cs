@@ -28,7 +28,7 @@ namespace GameProject0
         /// </summary>
         protected override void Initialize()
         {
-
+            System.Random randPosition = new System.Random();
             // TODO: Add your initialization logic here
             chicken = new ChickenSprite();
             snakes = new SnakeSprite[]
@@ -38,14 +38,27 @@ namespace GameProject0
                 new SnakeSprite((new Vector2(200, 300)), SnakeDirection.Left),
                 new SnakeSprite((new Vector2(350, 200)), SnakeDirection.Left)
             };
-            eggs = new EggSprite[]
+            //eggs = new EggSprite[]
+            //{
+            //    new EggSprite(new Vector2(625, 250)),
+            //    new EggSprite(new Vector2(100, 400)),
+            //    new EggSprite(new Vector2(570, 50)),
+            //    new EggSprite(new Vector2(350, 325))
+            //};
+            //eggsLeft = eggs.Length;
+
+            Vector2 eggPosition;
+            eggs = new EggSprite[4];
+            for(int i = 0; i < eggs.Length; i++)
             {
-                new EggSprite(new Vector2(625, 250)),
-                new EggSprite(new Vector2(100, 400)),
-                new EggSprite(new Vector2(570, 50)),
-                new EggSprite(new Vector2(350, 325))
-            };
-            eggsLeft = eggs.Length;
+                eggPosition = new Vector2((float)randPosition.NextDouble() * GraphicsDevice.Viewport.Width, (float)randPosition.NextDouble() * GraphicsDevice.Viewport.Height);
+                if(eggPosition.X < 25 && eggPosition.Y < 40)
+                {
+                    eggPosition.X += 40;
+                    eggPosition.Y += 60;
+                }
+                eggs[i] = new EggSprite(eggPosition);
+            }
 
             base.Initialize();
         }
