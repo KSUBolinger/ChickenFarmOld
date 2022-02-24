@@ -91,7 +91,9 @@ namespace GameProject0
             bangers = Content.Load<SpriteFont>("bangers");
             eggCollected = Content.Load<SoundEffect>("EggPickup");
             collision = Content.Load<SoundEffect>("Collision");
-
+            backgroudMusic = Content.Load<Song>("BackgroundCountry");
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(backgroudMusic);
         }
 
         /// <summary>
