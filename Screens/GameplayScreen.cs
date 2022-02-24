@@ -57,7 +57,7 @@ namespace GameProject0.Screens
             _gameFont = _content.Load<SpriteFont>("bangers");
 
             //old code for intialize
-
+            backgroundTexture = _content.Load<Texture2D>("Plains");
             eggCollected = _content.Load<SoundEffect>("EggPickup");
             collision = _content.Load<SoundEffect>("Collision");
 
@@ -247,7 +247,7 @@ namespace GameProject0.Screens
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            //spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
             chicken.Draw(gameTime, spriteBatch);
             foreach (var snake in snakes)
             {
