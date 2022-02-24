@@ -7,3 +7,11 @@ Content/Plains.png - created by Theoden on OpenGameArt.org (https://opengameart.
 Content/Snake.png - created by Hiross on OpenGameArt.org (https://opengameart.org/content/snake-2d-remix-with-dead-animation), released under public domain
 
 Content/bangers.spritefont - Bangers font created by Vernon Adams, released on Google Fonts (https://fonts.google.com/specimen/Bangers) under the Open Font License
+
+Content/EggPickup.wav - Created by Easton Bolinger with BXFR, released under public domain
+
+Content/Collision.wav - Created by Easton Bolinger with BXFR, released under public domain
+
+Content/BackgroundCountry.mp3 - created by Jason Shaw (https://freemusicarchive.org/music/Jason_Shaw/Audionautix_Acoustic/MOUNTAIN_SUN_____________________2-33) released under CC-BY-3.0-US license
+
+Content/BackgroundBlueGrass.mp3 - created by Shake That Little Foot (https://freemusicarchive.org/music/Shake_That_Little_Foot/Shake_That_Little_Foot/West_Fork_Gals_vbrmp3) released under CC-BY-NA-SA-3.0 license
