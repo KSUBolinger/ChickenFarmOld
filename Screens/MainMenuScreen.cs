@@ -26,7 +26,7 @@ namespace GameProject0.Screens
 
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new GameplayScreen());
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, new BackgroundScreen(), new GameplayScreen());
         }
 
         private void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using GameProject0.StateManagement;
 using GameProject0;
 
@@ -20,13 +21,15 @@ namespace GameProject0.Screens
         private ContentManager _content;
         private SpriteFont _gameFont;
 
-        private SpriteBatch spriteBatch;
+        //private SpriteBatch spriteBatch;
         private SnakeSprite[] snakes;
         private ChickenSprite chicken;
         private EggSprite[] eggs;
         private SpriteFont bangers;
         private int eggsLeft;
         private Texture2D backgroundTexture;
+        private SoundEffect eggCollected;
+        private SoundEffect collision;
 
         private readonly Random _random = new Random();
 
@@ -49,7 +52,56 @@ namespace GameProject0.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            
+
             _gameFont = _content.Load<SpriteFont>("bangers");
+
+            //old code for intialize
+
+            eggCollected = _content.Load<SoundEffect>("EggPickup");
+            collision = _content.Load<SoundEffect>("Collision");
+
+            System.Random randPosition = new System.Random();
+            // TODO: Add your initialization logic here
+            chicken = new ChickenSprite();
+            snakes = new SnakeSprite[]
+            {
+                new SnakeSprite((new Vector2(400, 375)), SnakeDirection.Right),
+                new SnakeSprite((new Vector2(325, 100)), SnakeDirection.Right),
+                new SnakeSprite((new Vector2(200, 300)), SnakeDirection.Left),
+                new SnakeSprite((new Vector2(350, 200)), SnakeDirection.Left)
+            };
+            //eggs = new EggSprite[]
+            //{
+            //    new EggSprite(new Vector2(625, 250)),
+            //    new EggSprite(new Vector2(100, 400)),
+            //    new EggSprite(new Vector2(570, 50)),
+            //    new EggSprite(new Vector2(350, 325))
+            //};
+            //eggsLeft = eggs.Length;
+
+            Vector2 eggPosition;
+            eggs = new EggSprite[4];
+            for (int i = 0; i < eggs.Length; i++)
+            {
+                eggPosition = new Vector2((float)randPosition.NextDouble() * ScreenManager.GraphicsDevice.Viewport.Width, (float)randPosition.NextDouble() * ScreenManager.GraphicsDevice.Viewport.Height);
+                if (eggPosition.X < 25 && eggPosition.Y < 40)
+                {
+                    eggPosition.X += 40;
+                    eggPosition.Y += 60;
+                }
+                eggs[i] = new EggSprite(eggPosition);
+            }
+
+            chicken.LoadContent(_content);
+            foreach (var snake in snakes)
+            {
+                snake.LoadContent(_content);
+            }
+            foreach (var egg in eggs)
+            {
+                egg.LoadContent(_content);
+            }
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -87,7 +139,43 @@ namespace GameProject0.Screens
 
             if (IsActive)
             {
-                
+                chicken.Update(gameTime);
+                foreach (var snake in snakes)
+                {
+                    snake.Update(gameTime);
+                    if (chicken.Bounds.CollidesWith(snake.Bounds))
+                    {
+                        chicken.Reset();
+                        foreach (var egg in eggs)
+                        {
+                            if (egg.Collected)
+                            {
+                                egg.Collected = false;
+                                eggsLeft++;
+                            }
+                        }
+                        collision.Play();
+                    }
+                }
+                foreach (var egg in eggs)
+                {
+                    if (!egg.Collected && egg.Bounds.CollidesWith(chicken.Bounds))
+                    {
+                        egg.Collected = true;
+                        eggsLeft--;
+                        eggCollected.Play();
+                    }
+                }
+
+                if (eggsLeft == 0)
+                {
+                    chicken.Reset();
+                    foreach (var egg in eggs)
+                    {
+                        egg.Collected = false;
+                        eggsLeft++;
+                    }
+                }
             }
         }
 
@@ -114,33 +202,33 @@ namespace GameProject0.Screens
             {
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
             }
-            else
-            {
-                // Otherwise move the player position.
-                var movement = Vector2.Zero;
+            //else
+            //{
+            //    // Otherwise move the player position.
+            //    var movement = Vector2.Zero;
 
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    movement.X--;
+            //    if (keyboardState.IsKeyDown(Keys.Left))
+            //        movement.X--;
 
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    movement.X++;
+            //    if (keyboardState.IsKeyDown(Keys.Right))
+            //        movement.X++;
 
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    movement.Y--;
+            //    if (keyboardState.IsKeyDown(Keys.Up))
+            //        movement.Y--;
 
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    movement.Y++;
+            //    if (keyboardState.IsKeyDown(Keys.Down))
+            //        movement.Y++;
 
-                var thumbstick = gamePadState.ThumbSticks.Left;
+            //    var thumbstick = gamePadState.ThumbSticks.Left;
 
-                movement.X += thumbstick.X;
-                movement.Y -= thumbstick.Y;
+            //    movement.X += thumbstick.X;
+            //    movement.Y -= thumbstick.Y;
 
-                if (movement.Length() > 1)
-                    movement.Normalize();
+            //    if (movement.Length() > 1)
+            //        movement.Normalize();
 
-                _playerPosition += movement * 8f;
-            }
+            //    _playerPosition += movement * 8f;
+            //}
         }
 
         public override void Draw(GameTime gameTime)
@@ -151,13 +239,7 @@ namespace GameProject0.Screens
             // Our player and enemy are both actually just text strings.
             var spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Begin();
-
-            spriteBatch.DrawString(_gameFont, "// TODO", _playerPosition, Color.Green);
-            spriteBatch.DrawString(_gameFont, "Insert Gameplay Here",
-                                   _enemyPosition, Color.DarkRed);
-
-            spriteBatch.End();
+            
 
 
             ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -165,7 +247,7 @@ namespace GameProject0.Screens
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
             chicken.Draw(gameTime, spriteBatch);
             foreach (var snake in snakes)
             {
@@ -175,8 +257,8 @@ namespace GameProject0.Screens
             {
                 egg.Draw(gameTime, spriteBatch);
             }
-            spriteBatch.DrawString(bangers, $"Eggs Left: {eggsLeft} ", new Vector2(15, 35), Color.Black);
-            spriteBatch.DrawString(bangers, $"Use 'ESC' to exit game", new Vector2(15, 5), Color.Black);
+            spriteBatch.DrawString(_gameFont, $"Eggs Left: {eggsLeft} ", new Vector2(15, 35), Color.Black);
+            spriteBatch.DrawString(_gameFont, $"Use 'ESC' to exit game", new Vector2(15, 5), Color.Black);
 
             spriteBatch.End();
 
