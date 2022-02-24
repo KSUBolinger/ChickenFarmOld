@@ -4,9 +4,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // Helper class represents a single entry in a MenuScreen. By default this
     // just draws the entry text string, but it can be customized to display menu

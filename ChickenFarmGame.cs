@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using GameProject0.Screens;
+using GameProject0.StateManagement;
+using GameProject0;
 
 namespace GameProject0
 {
@@ -17,9 +20,12 @@ namespace GameProject0
         private SpriteFont bangers;
         private int eggsLeft;
         private Texture2D backgroundTexture;
+
         private SoundEffect eggCollected;
         private SoundEffect collision;
         private Song backgroudMusic;
+
+        private readonly ScreenManager screenManager;
 
 
         public ChickenFarmGame()
@@ -27,6 +33,20 @@ namespace GameProject0
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
+
+            var screenFactory = new ScreenFactory();
+            Services.AddService(typeof(IScreenFactory), screenFactory);
+
+            screenManager = new ScreenManager(this);
+            Components.Add(screenManager);
+
+            IntialScreens();
+        }
+
+        private void IntialScreens()
+        {
+            screenManager.AddScreen(new BackgroundScreen(), null);
+            screenManager.AddScreen(new MainMenuScreen(), null);
         }
         
         /// <summary>

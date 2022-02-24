@@ -2,7 +2,7 @@
     This screen is an adapted version of the one provided by Nathan Bean in the Game Architecture Tutorial to suit this game
 */
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // The options screen is brought up over the top of the main menu
     // screen, and gives the user a chance to configure the game

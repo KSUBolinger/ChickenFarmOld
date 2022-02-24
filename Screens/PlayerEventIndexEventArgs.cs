@@ -4,7 +4,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // Custom event argument which includes the index of the player who
     // triggered the event. This is used by the MenuEntry.Selected event.

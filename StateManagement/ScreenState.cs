@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChickenFarm.StateManagement
+namespace GameProject0.StateManagement
 {
     /// <summary>
     /// Enumeration of the possible screen states

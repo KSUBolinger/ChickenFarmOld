@@ -5,9 +5,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // The background screen sits behind all the other menu screens.
     // It draws a background image that remains fixed in place regardless
@@ -35,7 +35,7 @@ namespace ChickenFarm.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            _backgroundTexture = _content.Load<Texture2D>("background");
+            _backgroundTexture = _content.Load<Texture2D>("Plains");
         }
 
         public override void Unload()

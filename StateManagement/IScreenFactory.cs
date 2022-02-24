@@ -3,7 +3,7 @@
 */
 using System;
 
-namespace ChickenFarm.StateManagement
+namespace GameProject0.StateManagement
 {
     /// <summary>
     /// Defines an object that can create a screen when given its type.

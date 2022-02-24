@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ChickenFarm.StateManagement
+namespace GameProject0.StateManagement
 {
     /// <summary>
     /// The ScreenManager is a component which manages one or more GameScreen instance.
@@ -62,7 +62,7 @@ namespace ChickenFarm.StateManagement
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-            Font = _content.Load<SpriteFont>("menufont");
+            Font = _content.Load<SpriteFont>("bangers");
             BlankTexture = _content.Load<Texture2D>("blank");
 
             // Tell each of the screens to load thier content 

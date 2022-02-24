@@ -4,13 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     public class SplashScreen : GameScreen
     {

@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
+using GameProject0;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // This screen implements the actual game logic. It is just a
     // placeholder to get the idea across: you'll probably want to
@@ -19,8 +20,13 @@ namespace ChickenFarm.Screens
         private ContentManager _content;
         private SpriteFont _gameFont;
 
-        private Vector2 _playerPosition = new Vector2(100, 100);
-        private Vector2 _enemyPosition = new Vector2(100, 100);
+        private SpriteBatch spriteBatch;
+        private SnakeSprite[] snakes;
+        private ChickenSprite chicken;
+        private EggSprite[] eggs;
+        private SpriteFont bangers;
+        private int eggsLeft;
+        private Texture2D backgroundTexture;
 
         private readonly Random _random = new Random();
 
@@ -43,7 +49,7 @@ namespace ChickenFarm.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            _gameFont = _content.Load<SpriteFont>("gamefont");
+            _gameFont = _content.Load<SpriteFont>("bangers");
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -81,21 +87,7 @@ namespace ChickenFarm.Screens
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                _enemyPosition.X += (float)(_random.NextDouble() - 0.5) * randomization;
-                _enemyPosition.Y += (float)(_random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                var targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - _gameFont.MeasureString("Insert Gameplay Here").X / 2,
-                    200);
-
-                _enemyPosition = Vector2.Lerp(_enemyPosition, targetPosition, 0.05f);
-
-                // This game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+                
             }
         }
 
@@ -166,6 +158,30 @@ namespace ChickenFarm.Screens
                                    _enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
+
+
+            ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
+            chicken.Draw(gameTime, spriteBatch);
+            foreach (var snake in snakes)
+            {
+                snake.Draw(gameTime, spriteBatch);
+            }
+            foreach (var egg in eggs)
+            {
+                egg.Draw(gameTime, spriteBatch);
+            }
+            spriteBatch.DrawString(bangers, $"Eggs Left: {eggsLeft} ", new Vector2(15, 35), Color.Black);
+            spriteBatch.DrawString(bangers, $"Use 'ESC' to exit game", new Vector2(15, 5), Color.Black);
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || _pauseAlpha > 0)

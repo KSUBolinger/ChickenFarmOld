@@ -1,9 +1,9 @@
 ﻿/*
     This screen is an adapted version of the one provided by Nathan Bean in the Game Architecture Tutorial to suit this game
 */
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // The pause menu comes up over the top of the game,
     // giving the player options to resume or quit.

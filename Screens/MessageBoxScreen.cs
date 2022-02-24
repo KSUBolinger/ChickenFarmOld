@@ -5,9 +5,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // A popup message box screen, used to display "are you sure?" confirmation messages.
     public class MessageBoxScreen : GameScreen

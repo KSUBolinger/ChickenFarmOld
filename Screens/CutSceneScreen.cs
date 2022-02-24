@@ -7,10 +7,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 using Microsoft.Xna.Framework.Input;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     public class CutSceneScreen : GameScreen
     {

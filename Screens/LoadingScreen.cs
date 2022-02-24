@@ -3,9 +3,9 @@
 */
 using System;
 using Microsoft.Xna.Framework;
-using ChickenFarm.StateManagement;
+using GameProject0.StateManagement;
 
-namespace ChickenFarm.Screens
+namespace GameProject0.Screens
 {
     // The loading screen coordinates transitions between the menu system and the
     // game itself. Normally one screen will transition off at the same time as

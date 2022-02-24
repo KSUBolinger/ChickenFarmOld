@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace ChickenFarm.StateManagement
+namespace GameProject0.StateManagement
 {
     public class GameScreen
     {
