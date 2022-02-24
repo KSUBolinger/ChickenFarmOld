@@ -32,6 +32,12 @@
 /processorParam:TextureFormat=Color
 /build:Chicken.png
 
+#begin Collision.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Collision.wav
+
 #begin egg_whole_white.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -43,6 +49,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:egg_whole_white.png;Egg.png
+
+#begin EggPickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:EggPickup.wav
 
 #begin Plains.jpg
 /importer:TextureImporter

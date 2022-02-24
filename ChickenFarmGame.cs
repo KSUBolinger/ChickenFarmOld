@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace GameProject0
 {
@@ -15,6 +17,10 @@ namespace GameProject0
         private SpriteFont bangers;
         private int eggsLeft;
         private Texture2D backgroundTexture;
+        private SoundEffect eggCollected;
+        private SoundEffect collision;
+        private Song backgroudMusic;
+
 
         public ChickenFarmGame()
         {
@@ -83,6 +89,8 @@ namespace GameProject0
                 egg.LoadContent(Content);
             }
             bangers = Content.Load<SpriteFont>("bangers");
+            eggCollected = Content.Load<SoundEffect>("EggPickup");
+            collision = Content.Load<SoundEffect>("Collision");
 
         }
 
@@ -111,6 +119,7 @@ namespace GameProject0
                             eggsLeft++;
                         }     
                     }
+                    collision.Play();
                 }
             }
             foreach(var egg in eggs)
@@ -119,6 +128,7 @@ namespace GameProject0
                 {
                     egg.Collected = true;
                     eggsLeft--;
+                    eggCollected.Play();
                 }
             }
             
