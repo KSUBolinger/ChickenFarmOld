@@ -16,7 +16,7 @@ namespace GameProject0.Screens
     // This screen implements the actual game logic. It is just a
     // placeholder to get the idea across: you'll probably want to
     // put some more interesting gameplay in here!
-    public class GameplayScreen : GameScreen
+    public class GameplayScreen : GameScreen, IEmitter
     {
         private ContentManager _content;
         private SpriteFont _gameFont;
@@ -35,6 +35,9 @@ namespace GameProject0.Screens
 
         private bool _screenShake;
         private float _shakeLength;
+
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
 
         private float _pauseAlpha;
         private readonly InputAction _pauseAction;
@@ -96,6 +99,8 @@ namespace GameProject0.Screens
                 eggs[i] = new EggSprite(eggPosition);
             }
 
+            
+
             chicken.LoadContent(_content);
             foreach (var snake in snakes)
             {
@@ -142,7 +147,11 @@ namespace GameProject0.Screens
 
             if (IsActive)
             {
+
                 chicken.Update(gameTime);
+                //Velocity = new Vector2(chicken.Bounds.X, chicken.Bounds.Y) - Position;
+                //Position = new Vector2(chicken.Bounds.X, chicken.Bounds.Y);
+
                 foreach (var snake in snakes)
                 {
                     snake.Update(gameTime);

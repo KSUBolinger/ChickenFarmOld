@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace ChickenFarm
+namespace GameProject0
 {
     /// <summary>
     /// A class representing a single particle in a particle system 

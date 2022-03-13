@@ -87,7 +87,7 @@ namespace GameProject0
             //    }
             //    eggs[i] = new EggSprite(eggPosition);
             //}
-
+            //DustParticleSystem dust = new DustParticleSystem(this, this);
             base.Initialize();
         }
 
