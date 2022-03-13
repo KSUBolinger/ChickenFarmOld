@@ -33,6 +33,9 @@ namespace GameProject0.Screens
 
         private readonly Random _random = new Random();
 
+        private bool _screenShake;
+        private float _shakeLength;
+
         private float _pauseAlpha;
         private readonly InputAction _pauseAction;
 
@@ -145,6 +148,9 @@ namespace GameProject0.Screens
                     snake.Update(gameTime);
                     if (chicken.Bounds.CollidesWith(snake.Bounds))
                     {
+                        _screenShake = true;
+                        _shakeLength = 0;
+
                         chicken.Reset();
                         foreach (var egg in eggs)
                         {
@@ -245,7 +251,17 @@ namespace GameProject0.Screens
             ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            Matrix shakeTransform = Matrix.Identity;
+            if (_screenShake)
+            {
+                _shakeLength += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                // Matrix shakeRotation = Matrix.CreateRotationZ(MathF.Cos(_shakeTime));
+                Matrix shakeTranslation = Matrix.CreateTranslation(10 * MathF.Sin(_shakeLength), 10 * MathF.Cos(_shakeLength), 0);
+                shakeTransform = shakeTranslation;
+                if (_shakeLength > 250) _screenShake = false;
+            }
+
+            spriteBatch.Begin(transformMatrix: shakeTransform);
 
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
             chicken.Draw(gameTime, spriteBatch);

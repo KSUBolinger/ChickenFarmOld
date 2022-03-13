@@ -25,6 +25,8 @@ namespace GameProject0
         private SoundEffect collision;
         private Song backgroudMusic;
 
+        
+
         private readonly ScreenManager screenManager;
 
 
