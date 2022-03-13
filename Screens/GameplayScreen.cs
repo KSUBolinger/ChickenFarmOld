@@ -23,6 +23,7 @@ namespace GameProject0.Screens
 
         //private SpriteBatch spriteBatch;
         private SnakeSprite[] snakes;
+        private GoofySnake goofySnake;
         private ChickenSprite chicken;
         private EggSprite[] eggs;
         private SpriteFont bangers;
@@ -77,6 +78,7 @@ namespace GameProject0.Screens
                 new SnakeSprite((new Vector2(200, 300)), SnakeDirection.Left),
                 new SnakeSprite((new Vector2(350, 200)), SnakeDirection.Left)
             };
+            goofySnake = new GoofySnake((new Vector2(300, 400)), SnakeDirection.Left);
             //eggs = new EggSprite[]
             //{
             //    new EggSprite(new Vector2(625, 250)),
@@ -110,6 +112,7 @@ namespace GameProject0.Screens
             {
                 egg.LoadContent(_content);
             }
+            goofySnake.LoadContent(_content);
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -151,7 +154,7 @@ namespace GameProject0.Screens
                 chicken.Update(gameTime);
                 //Velocity = new Vector2(chicken.Bounds.X, chicken.Bounds.Y) - Position;
                 //Position = new Vector2(chicken.Bounds.X, chicken.Bounds.Y);
-
+                goofySnake.Update(gameTime);
                 foreach (var snake in snakes)
                 {
                     snake.Update(gameTime);
@@ -274,10 +277,12 @@ namespace GameProject0.Screens
 
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
             chicken.Draw(gameTime, spriteBatch);
+            goofySnake.Draw(gameTime, spriteBatch);
             foreach (var snake in snakes)
             {
                 snake.Draw(gameTime, spriteBatch);
             }
+            
             foreach (var egg in eggs)
             {
                 egg.Draw(gameTime, spriteBatch);
@@ -286,6 +291,8 @@ namespace GameProject0.Screens
             spriteBatch.DrawString(_gameFont, $"Use 'ESC' to exit game", new Vector2(15, 5), Color.Black);
 
             spriteBatch.End();
+
+            
 
             base.Draw(gameTime);
 
