@@ -16,7 +16,7 @@ namespace GameProject0.Screens
     // This screen implements the actual game logic. It is just a
     // placeholder to get the idea across: you'll probably want to
     // put some more interesting gameplay in here!
-    public class GameplayScreen : GameScreen, IEmitter
+    public class GameplayScreen : GameScreen
     {
         private ContentManager _content;
         private SpriteFont _gameFont;
@@ -40,6 +40,8 @@ namespace GameProject0.Screens
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
 
+        SuccessfulCaptureParticle _sucessCapture;
+
         private float _pauseAlpha;
         private readonly InputAction _pauseAction;
 
@@ -59,7 +61,8 @@ namespace GameProject0.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            
+            _sucessCapture = new SuccessfulCaptureParticle(ScreenManager.Game, 20);
+            ScreenManager.Game.Components.Add(_sucessCapture);
 
             _gameFont = _content.Load<SpriteFont>("bangers");
 
@@ -181,6 +184,7 @@ namespace GameProject0.Screens
                     {
                         egg.Collected = true;
                         eggsLeft--;
+                        _sucessCapture.ShowSucessfulCapture(egg.Bounds.Center);
                         eggCollected.Play();
                     }
                 }
