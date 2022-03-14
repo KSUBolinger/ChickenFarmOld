@@ -15,3 +15,5 @@ Content/Collision.wav - Created by Easton Bolinger with BXFR, released under pub
 Content/BackgroundCountry.mp3 - created by Jason Shaw (https://freemusicarchive.org/music/Jason_Shaw/Audionautix_Acoustic/MOUNTAIN_SUN_____________________2-33) released under CC-BY-3.0-US license
 
 Content/BackgroundBlueGrass.mp3 - created by Shake That Little Foot (https://freemusicarchive.org/music/Shake_That_Little_Foot/Shake_That_Little_Foot/West_Fork_Gals_vbrmp3) released under CC-BY-NA-SA-3.0 license
+
+Content/0006.png - created by rubberduck on OpenGameArt.org (https://opengameart.org/content/sparkling-fireball-effect), released under public domain
